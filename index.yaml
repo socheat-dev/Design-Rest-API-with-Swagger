@@ -1,0 +1,92 @@
+openapi: 3.0.0
+info:
+  title: Nham Place API
+  version: 1.0.0
+servers:
+  - url: http://nhamplace.com/v1
+paths:
+  /user:
+    description: User of nham place
+    get:
+      tags:
+        - user
+      description: Operation to fetch user
+      parameters:
+        - in: query
+          name: username
+          required: true
+          schema:
+            type: string
+            example: socheat
+      responses:
+        200:
+          description: Successs Response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/users"
+    post:
+      description: Add a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/user"
+      responses:
+        201:
+          description: Record successfully added
+  /user{id}:
+    description: Get user based on Path parameter
+    get:
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        200:
+          description: Success response with path param
+          content:
+            application/json:
+              schema:
+                # type: array
+                # items:
+                #   properties:
+                #     UserID:
+                #       type: integer
+                #       example: 3
+                #     UserName:
+                #       type: string
+                #       example: porhay
+                #     UserRemarks:
+                #       type: string
+                #       example: Top like user
+                $ref: "#/components/schemas/users"
+components:
+  schemas:
+    user:
+      type: object
+      properties:
+        UserID:
+          type: integer
+          example: 3
+        UserName:
+          type: string
+          example: porhay
+        UserRemarks:
+          type: string
+          example: Top like user
+    users:
+      type: array
+      items:
+        properties:
+          UserID:
+            type: integer
+            example: 3
+          UserName:
+            type: string
+            example: porhay
+          UserRemarks:
+            type: string
+            example: Top like user
